@@ -1,0 +1,6 @@
+YA_ID = ""
+SKILL_ID = ""
+USR_MIKR = ""
+IP_MIKR = ""
+PASSW_MIKR = ""
+WoL_MACADD = ""

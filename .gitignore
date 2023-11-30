@@ -1,0 +1,4 @@
+/constant.py
+/venv/*
+/*.pem
+/*.key
