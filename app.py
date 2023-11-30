@@ -29,5 +29,5 @@ def res():
 
 
 if __name__ == '__main__':
-    context = ('ECC-cert.pem', 'ECC-privkey.key')
+    context = ('cert/ECC-cert.pem', 'cert/ECC-privkey.key')
     app.run('0.0.0.0', port=5000, ssl_context=context, debug=True)
