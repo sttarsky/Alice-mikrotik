@@ -1,8 +1,8 @@
 from netmiko import ConnectHandler, NetmikoTimeoutException
-from constant import *
+from constant import IP_MIKR, USR_MIKR, PASSW_MIKR, SKILL_ID
 
 
-def connect(command: str = '/sys ide pr'):
+def connect(command: str = '/sys ide pr') -> tuple[bool, str]:
     mikrotik_ros = {
         'device_type': 'mikrotik_routeros',
         'host': IP_MIKR,
@@ -13,7 +13,7 @@ def connect(command: str = '/sys ide pr'):
     try:
         with ConnectHandler(**mikrotik_ros) as ssh:
             result = ssh.send_command(command)
-        return True, result
+        return True, 'выполнено'
     except NetmikoTimeoutException as error:
         return False, 'микротик недоступен'
 

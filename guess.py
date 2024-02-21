@@ -1,14 +1,15 @@
 import mikrotik
 from constant import WoL_MACADD
 
+
 def guesser(value: str):
     match value.split():
-        case *arg, "включи", "пк" | "комп":
+        case *arg, "включи" | "включить", "пк" | "комп":
             result = mikrotik.connect(command=f'tool wol mac={WoL_MACADD}')
-        case *arg, "выключи", "wifi"|"вайфай":
-            result = mikrotik.connect(command=f'/interface wifiwave2 disable wifi2')
+        case *arg, "перезагрузи" | "перезагрузить", "роутер" | "микротик":
+            result = mikrotik.connect(command=f'/system reboot')
+        case *arg, "перезагрузи" | "перезагрузить", "vpn" | "впн" | "випиэн":
+            result = mikrotik.connect(command=f'')
         case _:
-            result = False, 'команда нераспознанна'
-    if result[0] is True and result[1] == '':
-        result = True, 'выполнено'
+            result = False, 'команда не распознана'
     return result

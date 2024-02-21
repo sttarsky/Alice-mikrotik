@@ -16,4 +16,4 @@ WORKDIR /svc
 
 RUN pip install --no-index --find-links=/svc/wheels -r requirement.txt
 
-ENTRYPOINT ["python", "app.py"]
+ENTRYPOINT ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
