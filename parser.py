@@ -1,19 +1,18 @@
-import json
+
 from constant import SKILL_ID
 from guess import guesser
+from models import Post
 
 
-async def parser(plain_text: str):
-    item: dict = json.loads(plain_text)
+async def parser(item: Post):
     skill = SKILL_ID
-    match item.get('session').get('skill_id'):
+    match item.session.skill_id:
         case str(skill):
-            request = item.get('request')
-            if request.get('command'):
-                result = guesser(item.get('request').get('command'))
+            if item.request.command:
+                result = guesser(item.request.command)
             else:
                 result = True, 'Скилл доступен'
         case _:
-            result = False, "Внутрення ошибка"
+            result = False, "Внутренняя ошибка"
     return result
 

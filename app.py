@@ -1,12 +1,22 @@
+from models import Post
 from fastapi import FastAPI, HTTPException
 from parser import parser
 app = FastAPI(title="Alice")
 
 
 @app.post("/")
-async def ask(request):
+async def ask(request: Post):
     result = await parser(request)
-    return result[1]
+    response = {
+        'response': {
+            'text': result[1],
+            'end_session': True
+        },
+        'version': request.version
+    }
+    return response
+
+
 
 
 @app.get("/")

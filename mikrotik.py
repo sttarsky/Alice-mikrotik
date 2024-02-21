@@ -1,5 +1,5 @@
 from netmiko import ConnectHandler, NetmikoTimeoutException
-from constant import IP_MIKR, USR_MIKR, PASSW_MIKR, SKILL_ID
+from constant import IP_MIKR, USR_MIKR, PASSW_MIKR
 
 
 def connect(command: str = '/sys ide pr') -> tuple[bool, str]:

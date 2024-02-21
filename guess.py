@@ -9,7 +9,7 @@ def guesser(value: str):
         case *arg, "перезагрузи" | "перезагрузить", "роутер" | "микротик":
             result = mikrotik.connect(command=f'/system reboot')
         case *arg, "перезагрузи" | "перезагрузить", "vpn" | "впн" | "випиэн":
-            result = mikrotik.connect(command=f'')
+            result = mikrotik.connect(command=f'/interface/wifiwave2/disable wifi1')
         case _:
             result = False, 'команда не распознана'
     return result
