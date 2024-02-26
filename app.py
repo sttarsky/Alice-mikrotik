@@ -1,28 +1,14 @@
-from models import Post
-from fastapi import FastAPI, HTTPException
+from models import Post, Response
+from fastapi import FastAPI
 from parser import parser
-app = FastAPI(title="Alice")
+
+app = FastAPI(title="Alice", docs_url=None, redoc_url=None)
 
 
 @app.post("/")
-async def ask(request: Post):
+async def ask(request: Post) -> Response:
     result = await parser(request)
-    response = {
-        'response': {
-            'text': result[1],
-            'end_session': True
-        },
-        'version': request.version
-    }
-    return response
-
-
-
-
-@app.get("/")
-async def default():
-    raise HTTPException(status_code=404, detail="Item not found")
-
+    return result
 
 
 

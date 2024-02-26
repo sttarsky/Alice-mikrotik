@@ -1,5 +1,7 @@
+import subprocess
+
 import mikrotik
-from constant import WoL_MACADD
+from constant import WoL_MACADD, DEFAULT_SRV
 
 
 def guesser(value: str):
@@ -9,7 +11,13 @@ def guesser(value: str):
         case *arg, "перезагрузи" | "перезагрузить", "роутер" | "микротик":
             result = mikrotik.connect(command=f'/system reboot')
         case *arg, "перезагрузи" | "перезагрузить", "vpn" | "впн" | "випиэн":
-            result = mikrotik.connect(command=f'/interface/wifiwave2/disable wifi1')
+            output = subprocess.run(['ssh', '-i', '/root/id_rsa', f'root@{DEFAULT_SRV}', 'reboot'], capture_output=True,
+                   text=True)
+            if output.returncode == 0:
+                result = True, 'сервер перезагружен'
+            else:
+                result = False, 'сервер недоступен'
         case _:
             result = False, 'команда не распознана'
     return result
+

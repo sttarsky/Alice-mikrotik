@@ -7,7 +7,9 @@ setup(
     packages=find_packages(),
     install_requires=[
         'netmiko',
-        'flask'
+        'fastapi',
+        'uvicorn',
+        'setuptools'
     ],
     author='John Doe',
     description='My awesome project',

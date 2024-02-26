@@ -1,33 +1,45 @@
 from typing import Dict, Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
+class PSessionUser(BaseModel):
+    user_id: str
 
-class Session(BaseModel):
+
+class PSessionApplication(BaseModel):
+    application_id: str
+
+
+class PSession(BaseModel):
     message_id: int
     session_id: str
     skill_id: str
-    user: Dict[str, str]
+    user: PSessionUser
     user_id: str
-    application: Dict[str, str]
+    application: PSessionApplication
     new: bool
 
 
-class Request(BaseModel):
+class PRequest(BaseModel):
     command: str
     original_utterance: str
     nlu: Dict[str, Any]
-    markup: Dict[str, bool]
+    markup: Dict[str, Any]
     type: str
 
 
 class Post(BaseModel):
-    session: Session
-    request: Request
+    session: PSession
+    request: PRequest
     version: str
 
 
-if __name__ == '__main__':
-    test = Post.parse_obj(income_json)
-    print(test.request.command)
+class RResponse(BaseModel):
+    text: str
+    end_session: bool
+
+
+class Response(BaseModel):
+    response: RResponse
+    version: str

@@ -1,7 +1,7 @@
 
 from constant import SKILL_ID
 from guess import guesser
-from models import Post
+from models import Post, Response
 
 
 async def parser(item: Post):
@@ -14,5 +14,12 @@ async def parser(item: Post):
                 result = True, 'Скилл доступен'
         case _:
             result = False, "Внутренняя ошибка"
-    return result
+    response = Response.parse_obj({
+        'response': {
+            'text': result[1],
+            'end_session': True
+        },
+        'version': item.version
+    })
+    return response
 
